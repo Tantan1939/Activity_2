@@ -1,0 +1,281 @@
+{% extends 'Home/main.html' %}
+
+{% block content %}
+
+    <!-- Showcase -->
+    <section class="bg-dark text-light p-5 text-center text-sm-start">
+      <div class="container">
+          <div class="d-sm-flex align-items-center justify-content-between">
+              <div>
+              <h3> The <span class="text-info">
+                  Fastest Graphics Card
+              </span> for 2022 </h3>
+
+              <p class="lead my-4">
+                  Powered by Ampere, Zoteck's 2nd gen RTX architecture, GeForce RTX 30 Series graphics cards feature faster 2nd gen Ray Tracing Cores, 
+                  faster 3rd gen Tensor Cores, and new streaming multiprocessors that together bring stunning visuals, faster frame rates, 
+                  and AI acceleration for gamers and creators.
+              </p>
+              <!-- <button class="btn btn-primary btn-lg"> Buy Now</button> -->
+              </div>
+              <img class="img-fluid w-50 d-none d-sm-block" src="media/showcase.png" alt="">
+          </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <!-- <section class="bg-primary text-light p-5">
+        <div class="container">
+            <div class="d-md-flex justify-content-between align-items-center">
+                <h4 class="mb-3 mb-md-0">
+                    Sign Up Now
+                </h4>
+
+                <div class="input-group news-input">
+                    <input type="text" class="form-control" placeholder="Search Item" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-dark btn-lg" type="button">Button</button>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Product List -->
+    <section class="p-5">
+        <div class="container">
+            <div class="row text-center g-4">
+
+                {% for obj in get_gpus %}
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light">
+                        <img src="{{obj.Product_image.url}}" class="img-fluid" alt="No image found">
+                        <div class="card-body text-center">
+                            <h3 class="card-title mb-3">
+                                {{obj.Product_name}}
+                            </h3>
+                            <p class="card-text">
+                                {{obj.Product_description|truncatewords:20}}
+                            </p>
+                            <p class="lead fw-normal"> PHP: {{obj.Price}} </p>
+                            <button class="btn btn-primary btn-lg mb-3" id="BuyNowBTN" data-bs-toggle="modal" data-bs-target="#showCart"> Buy Now </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- <div class="col-md-4">
+                    <div class="card bg-dark text-light">
+                        <div class="h1 mb-3">
+                            <img src="media/SampleImage/RTX 3090.jpg" class="img-fluid" alt="">
+                        </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title mb-3">
+                                In Person
+                            </h3>
+                            <p class="card-text">
+                                Lorem15 Lorem15 Lorem15 Lorem15 Lorem15 Lorem15 Lorem15
+                            </p>
+
+                            <a href="" class="btn btn-primary"> Read More..</a>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Learn Sections -- Learn the Fundamentals -->
+    <section id="learn" class="p-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md">
+                    <img src="media/gpu.jpg" class="img-fluid" alt="">
+                </div>
+                <div class="col-md p-5">
+                    <h2>
+                        What is <span class="text-primary"> GRAPHICS CARD </span> ?
+                    </h2>
+                    <p class="lead fw-normal">
+                      A graphics card is an expansion card for your PC that is responsible for rendering images to the display. 
+                      High-end GPUs are used for gaming, ray tracing, graphics production, and even mining cryptocurrency.
+                    </p>
+                    <a href="" class="btn btn-light mt-3">
+                        <i class="bi bi-chevron-right"></i> Read More..
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="aboutUs" class="p-5 bg-dark text-light">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md p-5">
+                    <h2>
+                        About Us
+                    </h2>
+                    <p class="lead">
+                        Zoteck is a Philippine computer hardware company that produces Nvidia-GPU based video cards.
+                        Founded in 2021, its headquarters are in Quezon City, Philippines.
+                    </p>
+                    <a href="" class="btn btn-light mt-3">
+                        <i class="bi bi-chevron-right"></i> Read More..
+                    </a>
+                </div>
+                <div class="col-md">
+                    <img src="media/ashowcase.png" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Question Accordion -->
+    <section id="questions" class="p-5">
+        <div class="container">
+            <h2 class="text-center mb-4"> Frequently Asked Questions </h2>
+            <div class="accordion accordion-flush" id="questions">
+
+                {% for obj in get_questions %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#question{{forloop.counter}}">
+                        {{obj.Question}}
+                        </button>
+                    </h2>
+                    <div id="question{{forloop.counter}}" class="accordion-collapse collapse" data-bs-parent="#questions">
+                        <div class="accordion-body p-4">
+                        {{obj.Answer}}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Retail partners -->
+    <section id="retailers" class="p-5 bg-primary">
+        <div class="container">
+            <h2 class="text-center text-white"> Our Retail Partners </h2>
+            <p class="lead text-center text-white mb-5">
+                Our Retail Partners are located in the Philippines.
+            </p>
+
+            <div class="row g-4">
+              {% for obj in get_retail_stores %}
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="{{obj.store_logo.url}}" class="rounded-circle mb-3 w-25" alt="">
+                            <h3 class="card-title mb-3"> {{obj.store_name}} </h3>
+                            <p class="card-text">
+                              {{obj.description}}
+                            </p>
+                            <a href=""><i class="bi bi-twitter text-dark mx-1"></i></a>
+                            <a href=""><i class="bi bi-facebook text-dark mx-1"></i></a>
+                            <a href=""><i class="bi bi-linkedin text-dark mx-1"></i></a>
+                            <a href=""><i class="bi bi-instagram text-dark mx-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Map -->
+    <section class="p-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md">
+                    <h2 class="text-center mb-4"> Contact Info </h2>
+                    <ul class="list-group list-group-flush lead">
+                        <li class="list-group-item">
+                            <span class="fw-bold"> Main Location: </span> 673 Quirino Highway, San Bartolome, Novaliches, Quezon City
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="fw-bold"> Hotline: </span> (02) 8806-3049
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="fw-bold"> Company Email: </span> Zoteck.company@gm.com
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md">
+                    <div id='map' style='width: 600px; height: 450px;'></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Log-in Modal -->
+    <div class="modal fade" id="showLogin" tabindex="-1" aria-labelledby="showLoginLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="xCloseModal"></button>
+            </div>
+            <div class="modal-body">
+            <p class="lead"></p>
+
+            <form id="login-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword">
+                </div>
+                    <input type="submit" class="btn btn-primary" value="Login">
+                    <input type="submit" class="btn btn-info" value="Create new account">
+            </form>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeBtn">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        // map
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYnVoYXlwYWFrbzIwMjIiLCJhIjoiY2wwNTdkM3VvMXY4djNicGswdG44NTU2aiJ9.o86cyM3P2LrsZ9GZZf444Q';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [121.03291743869158,14.700635315893877],
+        zoom: 17
+        });
+
+        $(document).on('submit','#login-form',function(e){
+          e.preventDefault();
+        });
+
+        $(Document).ready(function(){
+          
+          //Clear input fields on modal-login
+          var clearInputs = function(e){
+            $("#inputEmail").val("");
+            $("#inputPassword").val("");
+          }
+
+          $("#closeBtn").on('click', clearInputs);
+          $("#xCloseModal").on('click', clearInputs);
+
+        });
+    </script>
+
+{% endblock content %}
